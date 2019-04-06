@@ -1,7 +1,7 @@
 package cn.edu.swu;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
-
+import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -40,7 +40,10 @@ public class LoginServlet3 extends HttpServlet{
 			if(resultSet.next()){
 				int count = resultSet.getInt(1);
 				if(count>0){
-					out.print("hello " + username);
+					String path = "test.html";
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/" + path);
+			
+			requestDispatcher.forward(req,resp);
 				}
 				else{
 					out.print("sorry " + username);
