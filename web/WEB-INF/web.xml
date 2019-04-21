@@ -3,6 +3,17 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
+	
+	<servlet>
+        <servlet-name>customer</servlet-name>
+        <servlet-class>cn.edu.swu.servlet.CustomerServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+         <servlet-name>customer</servlet-name>
+         <url-pattern>*.do</url-pattern>
+         </servlet-mapping>
+
+
 	<servlet>
 		<servlet-name>helloServlet</servlet-name>
 		<servlet-class>cn.edu.swu.HelloServlet</servlet-class>

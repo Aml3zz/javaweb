@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+		<center>
 		<h4>添加成功！</h4>
 		<h4><a href="index.jsp">----return ----</a></h4>
+		</center>
 </body>
 </html>

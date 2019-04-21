@@ -19,7 +19,12 @@
 		<%
 				}
 		%>
-				<form action="add.do" method="post">
+	
+                <center>
+                <div style="background-color:#ddd;padding:30;width:30%;">
+	
+	
+			<form action="add.do" method="post">
 			<table>
 				<tr>
 					<td>CustomerName:</td>
@@ -40,7 +45,9 @@
 					<td colspan="2"><input type="submit" value="Submit"/></td>
 			</tr>
 			</table>
-	</form>
+			</form>
+		</div>
+		</center>
 			
 </body>
 </html>

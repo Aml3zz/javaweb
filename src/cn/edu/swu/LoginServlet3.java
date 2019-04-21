@@ -15,8 +15,8 @@ public class LoginServlet3 extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req,HttpServletResponse resp)
 	throws ServletException,IOException{
-		String username = req.getParameter("username");
-		String passwd2  = req.getParameter("password");
+		String username = req.getParameter("form-username");
+		String passwd2  = req.getParameter("form-password");
 		
 		Connection connet = null;
 		PreparedStatement state = null;
@@ -40,10 +40,8 @@ public class LoginServlet3 extends HttpServlet{
 			if(resultSet.next()){
 				int count = resultSet.getInt(1);
 				if(count>0){
-					String path = "test.html";
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/" + path);
-			
-			requestDispatcher.forward(req,resp);
+			//req.getRequestDispatcher("../demo").forward(req,resp);
+			resp.sendRedirect("http://120.78.138.231:8080/demo");
 				}
 				else{
 					out.print("sorry " + username);

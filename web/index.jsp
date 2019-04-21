@@ -9,11 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<center>
+	<div style="background-color:#ddd;padding:30;width:30%;">
 	<form action="query.do" method="post">
 			<table>
 				<tr>
-					<td>CustomerName:</td>
+					<td>Name:</td>
 					<td><input type="text" name="name"/></td>
 				</tr>
 				<tr>
@@ -30,7 +31,8 @@
 			</tr>
 			</table>
 	</form>
-	
+	</div>
+	</center>
 	<br>
 	
 	<%
@@ -40,11 +42,13 @@
 	
 		<hr>
 		<br><br>
-		
+		<center>
+	        <div style="background-color:#ddd;padding:30;width:40%;">
+
 				<table border="1" cellpadding="10" cellspacing="0">
 					<tr>
 						<th>ID</th>
-						<th>CustomerName</th>
+						<th>Name</th>
 						<th>Address</th>
 						<th>Phone</th>
 						<th>UPDATE</th>
@@ -74,6 +78,10 @@
 					
 				</table>
 		
+			
+        	</div>
+	        </center>
+
 	<% 
 			}
 	%>
