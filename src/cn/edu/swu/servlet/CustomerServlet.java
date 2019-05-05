@@ -51,7 +51,7 @@ public class CustomerServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String servletPathString = req.getServletPath();
-		System.out.println(servletPathString);
+		//System.out.println(servletPathString);
 		String methodNameString = servletPathString.substring(1);
 		methodNameString = methodNameString.substring(0, methodNameString.length()-3);
 		System.out.println(methodNameString);
@@ -98,7 +98,7 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 	private void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("query");
+		//System.out.println("query");
 			String nameString = request.getParameter("name");
 			String phoneString = request.getParameter("phone");
 			String addrString = request.getParameter("address");
@@ -110,6 +110,71 @@ public class CustomerServlet extends HttpServlet {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 	
 	}
+	
+	private void update(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException  {
+		System.out.println("update");
+		//1.获取表单参数: id ,name ,address ,phone , oldname
+		String idString = request.getParameter("id");
+		String nameString = request.getParameter("name");
+		String address = request.getParameter("address");
+		String phoneString = request.getParameter("phone");
+		String oldName = request.getParameter("oldName");
+		//2.校验name 是否已经被占用；
+		
+		//2.1比较name和oldname是否相同，若相同说明name可用
+		//2.1若不相同，则调用customerDAO的getCountwithname获取name在数据库中是否存在
+		if(!oldName.equalsIgnoreCase(nameString)) {
+			long count = customerDAO.getCountWithName(nameString);
+			//2.2若返回值大于0，则响应updatecustomer.jsp:
+			if(count > 0) {
+				//2.2.2在newcustomer.jsp显示一个错误消息：用户名被占用，请重新选择
+				//在request中放入一个属性message：用户名被占用，请重新选择
+				//在页面上通过request.getAttribute("message")的方式来显示
+				request.setAttribute("message","用户名" +  nameString + "已经被占用，请重新选择！");
+				
+				//2.2.2在updatecustomer.jsp的表单值可以回显value="<%= request.getParameter("name") == null ? "": request.getParameter("name")%>"
+				//address,phone显示提交表单的新值，而name 显示oldname,而不是新提交的name
+				
+				//2.2.3结束方法：return
+					request.getRequestDispatcher("/updatecustomer.jsp").forward(request, response);
+					return;
+			}
+		}
+
+		//3.若验证通过把表单参数封装为一个Customer对象customer
+		Customer customer = new Customer(nameString,address,phoneString);
+		customer.setId(Integer.parseInt(idString));
+		
+		//4.调用customerDAO的save方法
+		customerDAO.update(customer);
+		
+		//5.重定向到query.do页面
+		response.sendRedirect("query.do");
+	}
+	
+
+	private void edit(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("edit");
+		String forwardPath = "/error.jsp";
+		//1.获取请求参数id
+		String idString = request.getParameter("id");
+		
+		//2.调用CustomerDAO 的 customerDAO.get(id) 获取和ID对应的Customer对象customer
+		try {
+			Customer customer = customerDAO.get(Integer.parseInt(idString));
+			if(customer != null) {
+				forwardPath = "/updatecustomer.jsp";
+				//3.将customer放入request中
+				request.setAttribute("customer", customer);
+			}
+		} catch (NumberFormatException e) {
+			
+		}
+		
+		//4.响应updatecustomer.jsp 页面；转发
+		request.getRequestDispatcher(forwardPath).forward(request, response);
+	}
+
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//System.out.println("add");

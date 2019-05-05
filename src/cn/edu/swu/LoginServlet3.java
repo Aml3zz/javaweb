@@ -40,8 +40,8 @@ public class LoginServlet3 extends HttpServlet{
 			if(resultSet.next()){
 				int count = resultSet.getInt(1);
 				if(count>0){
-			//req.getRequestDispatcher("../demo").forward(req,resp);
-			resp.sendRedirect("http://120.78.138.231:8080/demo");
+			req.getRequestDispatcher("chance.jsp").forward(req,resp);
+			//resp.sendRedirect("http://120.78.138.231:8080/demo");
 				}
 				else{
 					out.print("sorry " + username);

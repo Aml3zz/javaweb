@@ -3,12 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-		<h3>bbb page</h3>
-		<jsp:forward page="c.jsp"></jsp:forward>
-		<%--<%= request.getParameter("username") --%>
+	<h4>error</h4>
 </body>
 </html>
