@@ -24,6 +24,22 @@ public class LoginServlet3 extends HttpServlet{
 		
 		PrintWriter out = resp.getWriter();
 
+		//1. 获取请求参数: CHECK_CODE_PARAM_NAME
+		String paramCode = req.getParameter("CHECK_CODE_PARAM_NAME");
+		
+		//2. 获取 session 中的 CHECK_CODE_KEY 属性值
+		String sessionCode = (String)req.getSession().getAttribute("CHECK_CODE_KEY");
+		
+		System.out.println(paramCode);
+		System.out.println(sessionCode); 
+		
+		//3. 比对. 看是否一致, 若一致说明验证码正确, 若不一致, 说明验证码错误
+		if(!(paramCode != null && paramCode.equals(sessionCode))){
+			req.getSession().setAttribute("message", "验证码不一致!");
+			resp.sendRedirect(req.getContextPath() + "/index.jsp");
+			return;
+		}	
+	
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/first_work?useSSL=false";
@@ -36,7 +52,8 @@ public class LoginServlet3 extends HttpServlet{
 			state.setString(1,username);
 			state.setString(2,passwd2);
 
-			resultSet = state.executeQuery();
+			resultSet = state.executeQuery();		
+
 			if(resultSet.next()){
 				int count = resultSet.getInt(1);
 				if(count>0){
