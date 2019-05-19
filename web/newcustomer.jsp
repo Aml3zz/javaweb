@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,45 +9,34 @@
 </head>
 <body>
 			
-		<%
-				Object msg = request.getAttribute("message");
-				if(msg != null){
-		%>
+
+			<c:if test="${requestScope.message != null }">
 				<br>
-				<font color="red"><%= msg %></font>
+				<font color="red">${requestScope.message }</font>
 				<br>
-		<%
-				}
-		%>
-	
-                <center>
-                <div style="background-color:#ddd;padding:30;width:30%;">
-	
-	
+			</c:if>
+		
 			<form action="add.do" method="post">
 			<table>
 				<tr>
 					<td>CustomerName:</td>
-					<td><input type="text" name="name" 
-							value="<%= request.getParameter("name") == null ? "": request.getParameter("name")%>"/></td>
+					<td><input type="text" name="name" value="${param.name }"/></td>
 				</tr>
 				<tr>
 					<td>Address:</td>
 					<td><input type="text" name="address"
-							value="<%= request.getParameter("address") == null ? "": request.getParameter("address")%>"/></td>
+							value="${param.address }"/></td>
 				</tr>
 				<tr>
 					<td>Phone:</td>
 					<td><input type="text" name="phone"
-							value="<%= request.getParameter("phone") == null ? "": request.getParameter("phone")%>"/></td>
+							value="${param.phone }"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Submit"/></td>
 			</tr>
 			</table>
-			</form>
-		</div>
-		</center>
+	</form>
 			
 </body>
 </html>

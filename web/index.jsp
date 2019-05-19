@@ -1,5 +1,4 @@
-<%@page import="cn.edu.swu.mvcapp.domain.Customer"%>
-<%@page import ="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,12 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<center>
-	<div style="background-color:#ddd;padding:30;width:30%;">
+	
 	<form action="query.do" method="post">
 			<table>
 				<tr>
-					<td>Name:</td>
+					<td>CustomerName:</td>
 					<td><input type="text" name="name"/></td>
 				</tr>
 				<tr>
@@ -31,60 +29,48 @@
 			</tr>
 			</table>
 	</form>
-	</div>
-	</center>
+	
 	<br>
 	
-	<%
-			List<Customer> customers = (List<Customer>)request.getAttribute("customers");
-			if(customers != null && customers.size() >0){
-	%>
-	
+	<c:if test="${!empty requestScope.customers }">
 		<hr>
 		<br><br>
-		<center>
-	        <div style="background-color:#ddd;padding:30;width:40%;">
-
+		
 				<table border="1" cellpadding="10" cellspacing="0">
 					<tr>
 						<th>ID</th>
-						<th>Name</th>
+						<th>CustomerName</th>
 						<th>Address</th>
 						<th>Phone</th>
 						<th>UPDATE</th>
 						<th>DELETE</th>
 					</tr>
 					
-					<%
-						for(Customer customer:customers){
-					%>
-							
+
+					<c:forEach items="${requestScope.customers }" var="cust">	
 							<tr>
-								<td><%= customer.getId() %></td>
-								<td><%= customer.getName() %></td>
-								<td><%= customer.getAddress() %></td>
-								<td><%= customer.getPhone() %></td>
+								<td>${cust.id }</td>
+								<td>${cust.name }</td>
+								<td>${cust.address }</td>
+								<td>${cust.phone }</td>
 								<td>
-	a									<a href="edit.do?id=<%= customer.getId() %>">UPDATE</a>
+										<c:url value="/edit.do" var="editurl">
+												<c:param name="id" value="${cust.id }"></c:param>
+										</c:url>
+										<a href="${editurl }">UPDATE</a>
 									</td>
 									<td>
-										<a href="delete.do?id=<%= customer.getId() %>">DELETE</a>
+										<c:url value="/delete.do" var="deleteurl">
+												<c:param name="id" value="${cust.id }"></c:param>
+										</c:url>
+										<a href="${deleteurl }">DELETE</a>
 								</td>
 							</tr>
-					
-					<%
-						}
-					%>
-					
+
+					</c:forEach>					
 				</table>
 		
-			
-        	</div>
-	        </center>
-
-	<% 
-			}
-	%>
+</c:if>
 	<br>
 	
 	
