@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ConfirmServlet</servlet-name>
+    <servlet-class>com.busSystem.core.ConfirmServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserLoginServlet</servlet-name>
+    <servlet-class>com.busSystem.core.UserLoginServlet</servlet-class>
+  </servlet>
+
+	 <servlet>
+    <servlet-name>usernum</servlet-name>
+    <servlet-class>com.bus.servlet.LoginServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>usernum</servlet-name>
+    <url-pattern>/usernum</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ConfirmServlet</servlet-name>
+    <url-pattern>/login.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserLoginServlet</servlet-name>
+    <url-pattern>/UserLogin.do</url-pattern>
+  </servlet-mapping>
+  
+	<resource-ref> 
+		<res-ref-name>jdbc/busDataSource</res-ref-name> 
+		<res-type>javax.sql.DataSource</res-type> 
+		<res-auth>Container</res-auth> 
+	</resource-ref>
+	
+   <session-config>
+   		<session-timeout>30</session-timeout>
+   </session-config>	
+</web-app>
